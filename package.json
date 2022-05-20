@@ -11,6 +11,7 @@
     "react": "^18.1.0",
     "react-countdown": "^2.3.2",
     "react-dom": "^18.1.0",
+    "react-icons": "^4.3.1",
     "react-progressbar": "^15.4.1",
     "react-scripts": "4.0.3",
     "web-vitals": "^2.1.4",
@@ -21,6 +22,10 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
+  },
+
+  "resolutions": {
+    "react-error-overlay": "6.0.9"
   },
   "eslintConfig": {
     "extends": [

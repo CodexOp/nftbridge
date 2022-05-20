@@ -1,8 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-
-
 body{
-    font-family: 'Poppins', sans-serif;
+    background-image: url('../../images/background.jpg');
+}
+
+
+.swapp_arrow{
+    font-size: 40px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    margin: 20px auto !important;
 }
 
 
@@ -11,6 +18,7 @@ body{
     width: 100%;
     background: rgba(255,255,255,0.05);
     display: flex;
+    backdrop-filter: blur(10px);
     justify-content: space-between;
     align-items: center;
 
@@ -41,7 +49,12 @@ body{
 }
 
 .logo{
-    width: 70px;
+    width: 60px;
+    padding-top: 10px;
+}
+
+.logo h2{
+    margin-left: 10px;
 }
 
 
@@ -73,13 +86,17 @@ body{
 }
 
 
+
 .landing{
     width: 700px;
     background: rgba(255,255,255,0.05);
     margin: auto;
     margin-top: 40px !important;
     border-radius: 10px;
-}
+ 
+     backdrop-filter: blur(10px);
+     height: stretch
+    }
 
 .progressbar-container{
     background:rgba(255,255,255,0.1);
@@ -92,6 +109,7 @@ body{
     font-size: 0.8em;
     vertical-align: 0;
     font-size: 15px;
+    color: #fff;
     padding-left: 10px;
     /*Position text over the progress bar */
     position:absolute;
@@ -108,25 +126,37 @@ body{
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    width: 80%;
+    width: 100%;
     margin-top: 40px !important;
-    gap:10px;
     margin: auto;
 }
 
 
 .text-blue{
-    color:#20A7DB;
+    color:#7F3EDC;
 }
 
 .all_buttons button{
-padding: 15px 20px;
-width: 40%;  
+padding: 15px 0px;
+width: 100% !important;  
 }
 
 .stak_heading h2{
     text-align: center;
-    margin-bottom: 20px;
+    color: #fff;
+    font-size: 26px;
+    font-weight: bold;
+    margin-bottom: 10px;
+
+
+}
+.stak_heading p{
+    text-align: center;
+    color: #fff;
+    margin-bottom: 50px;
+    font-size: 18px;
+    text-transform: capitalize;
+
 }
 
 .stak_info p{
@@ -158,28 +188,58 @@ font-size: 18px;
    
 
 }
+
+
+.swap_element{
+    font-weight: 600;
+    color: #fff;
+}
     
 
 
-.input1{
-    position: relative;
-
-}
-
 .maxToken{
-    position: absolute;
-    top:10px;
-    right:0px;
+    margin-top: 20px;
+    width: 100%;
+    border-radius: 50px;
     font-weight: bold;
-    color: #fff;
-    padding: 8px 20px;
+    padding: 10px 30px;
+    font-size: 16px;
     cursor: pointer;
     display: flex;
-    background-color: #20A7DB;
     align-items: center;
-   
+   background: rgba(0,0,0,0.6);
+   margin-bottom: 30px;
 
 }
+.input_amount{
+    position: relative;
+}
+
+
+.max{
+    position: absolute;
+    top:10px;
+    right: 0;
+    font-weight: bold;
+    padding: 10px 30px;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+    align-items: center;
+   margin-bottom: 30px;
+   background: #20A7DB;
+
+
+}
+
+.max p{
+    text-align: center;
+}
+
+.maxToken p{
+    color: #fff !important;
+}
+
 
 .greenButton{
     background-color: #20A7DB;
@@ -210,6 +270,7 @@ font-size: 18px;
         width: 100%;
         margin-top: 0 !important;
         padding-top: 20px;
+        height: 100vh;
         
     }
 
@@ -243,7 +304,6 @@ font-size: 18px;
 
 .all_buttons button{
     padding: 10px 10px;
-    width: 48%;  
     }
 
     
@@ -256,7 +316,7 @@ font-size: 18px;
 @media(max-width:400px){
     .all_buttons button{
         padding: 10px 0px;
-        width: 48%;  
+        
         }
 
         .stak_box{

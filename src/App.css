@@ -11,3 +11,14 @@ body{
 .stack{
   color: #fff;
 }
+
+
+input[type=number]::-webkit-inner-spin-button {
+  opacity: 1;
+  height: 35px !important;
+  padding-right: 10px;
+}
+
+input{
+  border-radius: 3px !important;
+}
