@@ -6,12 +6,25 @@ body{
 .swapp_arrow{
     font-size: 40px;
     text-align: center;
-    display: flex;
     justify-content: center;
+    display: flex;
     margin: auto;
     margin: 20px auto !important;
+    transition: all 0.3s ease-in-out;
 }
 
+.swapp_arrow:hover{
+    color: #394387;
+
+}
+
+iframe{
+    z-index: -1 !important;
+}
+
+.arrow{
+    width:100%;
+}
 
 .navbar_outer{
     height: 100px;
@@ -25,7 +38,17 @@ body{
     
 }
 
+.nftimages{
+    width: 32%;
+    height: auto;
+}
 
+
+.nftimages_container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
 
 
 .logo_container{
@@ -69,8 +92,15 @@ body{
     font-size: 16px;
     font-weight: bold !important;
     cursor: pointer;
+    transition: all 0.3s ease-in-out;
+
 }
 
+
+.wallet:hover{
+    background: #394387;
+
+}
 
 @media(max-width:500px){
     .wallet{
@@ -117,8 +147,14 @@ body{
   }
 
 
+
 .stak_box{
     padding: 40px 50px;
+}
+
+.tokenid{
+    margin-bottom: 20px;
+    font-size: 18px;
 }
 
 
@@ -128,7 +164,6 @@ body{
     flex-wrap: wrap;
     width: 100%;
     margin-top: 40px !important;
-    margin: auto;
 }
 
 
@@ -137,7 +172,7 @@ body{
 }
 
 .all_buttons button{
-padding: 15px 0px;
+padding: 10px 0px;
 width: 100% !important;  
 }
 
@@ -190,6 +225,7 @@ font-size: 18px;
 }
 
 
+
 .swap_element{
     font-weight: 600;
     color: #fff;
@@ -198,7 +234,7 @@ font-size: 18px;
 
 
 .maxToken{
-    margin-top: 20px;
+    margin-top: 10px !important;
     width: 100%;
     border-radius: 50px;
     font-weight: bold;
@@ -208,7 +244,7 @@ font-size: 18px;
     display: flex;
     align-items: center;
    background: rgba(0,0,0,0.6);
-   margin-bottom: 30px;
+   margin-bottom: 10px !important;
 
 }
 .input_amount{
@@ -243,13 +279,18 @@ font-size: 18px;
 
 .greenButton{
     background-color: #20A7DB;
-    border:1px solid rgba(255,255,255,0.3);
     border-radius: 10px;
+    border: none;
     color:#fff;
     font-weight: bold;
     font-size: 16px;
     cursor: pointer;
+    transition: all 0.3s ease-in-out;
 
+}
+
+.greenButton:hover{
+    background: #394387;
 }
 
 
@@ -285,6 +326,11 @@ font-size: 18px;
     .connect_wallet_container{
         margin-right: 10px;
 
+    }
+
+    .nftimages{
+        width: 48%;
+        height: auto;
     }
 }
 
