@@ -118,13 +118,12 @@ iframe{
 
 
 .landing{
-    width: 700px;
+    width: 900px;
     background: rgba(255,255,255,0.05);
     margin: auto;
     margin-top: 40px !important;
     border-radius: 10px;
- 
-     backdrop-filter: blur(10px);
+     backdrop-filter: blur(5px);
      height: stretch
     }
 
@@ -306,7 +305,7 @@ font-size: 18px;
 }
 
 
-@media(max-width:763px){
+@media(max-width:963px){
     .landing{
         width: 100%;
         margin-top: 0 !important;

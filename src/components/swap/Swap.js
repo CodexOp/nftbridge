@@ -109,7 +109,7 @@ const Swap = () => {
 
   function displaynft () {
     return (
-      imageUrls.length > 0  && imageUrls.map((value, key) => (<img onClick={(e) => {setNftimage(value); showmodal(e)}} src={value} className='nftimages' alt={key} />))
+      imageUrls.length >= 0  && imageUrls.map((value, key) => (<img onClick={(e) => {setNftimage(value); showmodal(e)}} src={value} className='nftimages' alt={key} />))
     )
   }
 
