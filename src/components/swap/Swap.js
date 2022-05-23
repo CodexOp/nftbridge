@@ -17,6 +17,7 @@ const Swap = () => {
   const [valve2, setValve2] = useState(<div className='swap_element'> <SiBinance /> BINANCE</div>)
   const [imageUrls, setImageUrls] = useState([]);
   const Web3Api = useMoralisWeb3Api();
+  const [Nftimage, setNftimage] = useState()
 
   React.useEffect(() => {
     // let _web3ModalRef = new Web3Modal({
@@ -106,6 +107,11 @@ const Swap = () => {
 
   }
 
+  function displaynft () {
+    return (
+      imageUrls.length > 0  && imageUrls.map((value, key) => (<img onClick={(e) => {setNftimage(value); showmodal(e)}} src={value} className='nftimages' alt={key} />))
+    )
+  }
 
   return (
 
@@ -125,7 +131,7 @@ const Swap = () => {
           <AiOutlineClose className='close_icon' onClick={(e) => closeModal(e)}/>
         <div className='modal_inner'>
         <div className='left_section'>
-          <img src={imageUrls[6]} alt='nft' className='modal_image'/>
+          <img src={Nftimage} alt='nft' className='modal_image'/>
         </div>
       <div className='right_section'>
         <div className='right_info'>
@@ -174,7 +180,7 @@ const Swap = () => {
                 </div>
                 
                 <div className='nftimages_container'>
-                {imageUrls.length > 0  && imageUrls.map((value, key) => <img  onClick={(e) => showmodal(e)} src={value} className='nftimages' alt={key} />)}
+               { displaynft()}
                 </div>
 
                 
