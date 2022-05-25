@@ -1,7 +1,34 @@
 {
-    "rpcUrl": "https://bsc-dataseed1.defibit.io/",
-    "stakingAddress": "0xF20e092C3763F600C1Ee71B0B7046B69bd0D548C",
-    "token":"0x7658604d32a0e60D08dd77A60413897E5CeFD51f",
+    "rpcUrl": {
+        "1": "https://speedy-nodes-nyc.moralis.io/02b1933a75953753949af061/eth/mainnet",
+        "4": "https://speedy-nodes-nyc.moralis.io/02b1933a75953753949af061/eth/rinkeby",
+        "56": "https://speedy-nodes-nyc.moralis.io/02b1933a75953753949af061/bsc/mainnet",
+        "97": "https://speedy-nodes-nyc.moralis.io/02b1933a75953753949af061/bsc/testnet"
+    },
+    "token":{
+        "1": "",
+        "4": "0x7A4eE36Fa65857268f9Ef38186DB830836144A3A",
+        "56": "0x90BB4c7824182e6F37c97cAD683f46bC68894907",
+        "97": "0x0346d339138364C5263498d12F28Dec749D7B767"
+    },
+    "nft":{
+        "1": "",
+        "4": "0x9950ee858029beFC99F2121388110BDBBE4607DE",
+        "56": "0x0932B4D7386822CbdA970833fE815641B0347733",
+        "97": "0x50dBeeC0760C02B92942b44DE97C02A57e79aC28"
+    },
+    "bridge":{
+        "1": "",
+        "4": "0x1aA7018DB4C8DD9b1370B226afb5115E4091C661",
+        "56": "",
+        "97": "0x1CD4561F8cF57873F17f4588321682c636cA70Ba"
+    },
+    "moralisId":{
+        "1": "eth",
+        "4": "rinkeby",
+        "56": "bsc",
+        "97": "bsc testnet"
+    },
     "router": "0x10ED43C718714eb63d5aA57B78B54704E256024E",
     "wbnb": "0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c",
     "busd": "0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56",
