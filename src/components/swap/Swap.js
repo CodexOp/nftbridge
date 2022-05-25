@@ -23,8 +23,6 @@ const Swap = () => {
   const [swap, setSwap] = useState(false)
   const [modal, setModal] = useState(false)
   const [chainerror, setChainError] = useState()
-  const [valve, setValve] = useState(<div className='swap_element'> <FaEthereum /> ETHEREUM</div>)
-  const [valve2, setValve2] = useState(<div className='swap_element'> <SiBinance /> BINANCE</div>)
   const [imageUrls, setImageUrls] = useState([]);
   const Web3Api = useMoralisWeb3Api();
   const [Nftimage, setNftimage] = useState();
@@ -78,7 +76,14 @@ const Swap = () => {
 
 React.useEffect(() => {
   fetchSearchNFTs();
+  if (chainId == 1 || chainId == 4){
+    setSwap(false);
+  }else setSwap(true);
 }, [chainId, walletAddress]);
+
+React.useEffect(() => {
+  console.log ("HIII")
+}, [_provider, walletAddress]);
 
 
   const connectWallet = async () => {
@@ -94,6 +99,8 @@ React.useEffect(() => {
     try{
       await web3ModalRef.current.clearCachedProvider();
       window.localStorage.clear();
+      setChainId(0);
+      setImageUrls([]);
       setConnectedWallet(false);
       setWalletAddress("Connect")
       _setProvider("");
@@ -107,20 +114,12 @@ React.useEffect(() => {
   const getSignerOrProvider = async (needSigner = false) => {
     try{
       const _provider = new providers.JsonRpcProvider(values.rpcUrl);
-      _setProvider(_provider);
       const provider = await web3ModalRef.current.connect();
       const web3Provider = new providers.Web3Provider(provider);
       const { chainId } = await web3Provider.getNetwork();
       console.log ("ChainId: ", chainId);
+      _setProvider(web3Provider);
       setChainId(chainId);
-      // if (chainId !== 4) {
-      //   alert("USE RINKEEBY NETWORK");
-      //   throw new Error("Change network to Rinkeby");
-      // }
-
-      if (chainId != 56){
-        // switchNetwork(web3Provider);
-      }
 
       if (needSigner) {
         const signer = web3Provider.getSigner();
@@ -133,38 +132,16 @@ React.useEffect(() => {
         console.log(accounts);
         connectWallet();
       });
+      provider.on("chainChanged", (chainId) => {
+        connectWallet();
+        console.log(chainId);
+      });
     } catch (error) {
       console.log (error);
       const provider = new providers.JsonRpcProvider(values.rpcUrl);
       _setProvider(provider);
     }
   };
-
-  async function switchNetwork (library) {
-    try {
-      await library.provider.request({
-        method: "wallet_switchEthereumChain",
-        params: [{ chainId: ethers.utils.hexlify(56) }],
-      });
-      console.log ("HIhIHIHIHIHI")
-      
-    } catch (switchError) {
-        console.log ("HIIIIIIIIIIIIIIIII", switchError)
-        // This error code indicates that the chain has not been added to MetaMask.
-      if (switchError.code === 4902) {
-        try {
-          await library.provider.request({
-            method: "wallet_addEthereumChain",
-            params: [
-              chainData[56]
-            ],
-          });
-        } catch (addError) {
-          throw addError;
-        }
-      }
-    }
-  }
 
   async function fetchSearchNFTs () {
     try {
@@ -219,29 +196,13 @@ React.useEffect(() => {
     console.log ("Nft ki esi ki tesi:", err);
   }
   };
- 
-  const swapping = () => {
-    setSwap(!swap)
-
-    if(swap === false){
-      setValve(<div className='swap_element'> <FaEthereum /> ETHEREUM</div>)
-      setValve2(<div className='swap_element'> <SiBinance /> BINANCE</div>)
-    }
-
-    else{
-      setValve(<div className='swap_element'> <SiBinance /> BINANCE</div>)
-      setValve2(<div className='swap_element'> <FaEthereum /> ETHEREUM</div>)
-    }
-  }
 
   const showmodal = () => {
     setModal(!modal)
-
   }
 
   const closeModal = () =>{
     setModal(!modal)
-
   }
 
   function displaynft () {
@@ -303,16 +264,24 @@ React.useEffect(() => {
         <p className='chain'>{checkChain()}</p> 
           <div className="input1">
                 <div className='maxToken'>
-                <p>{valve}</p>
+                <p>{swap ? 
+                  <div className='swap_element'> <SiBinance /> BINANCE</div> 
+                  : 
+                  <div className='swap_element'> <FaEthereum /> ETHEREUM</div>
+                }</p>
                 </div>
                 </div>
                 <div className='inputbox'>
                 <div className='arrow'>
-                  <BsFillArrowDownCircleFill className='swapp_arrow' onClick={() => swapping()}/>
+                  <BsFillArrowDownCircleFill className='swapp_arrow'/>
                 </div>
                 <div className="input2">
                 <div className='maxToken'>
-                <p>{valve2}</p>
+                <p>{swap ? 
+                  <div className='swap_element'> <FaEthereum /> ETHEREUM</div> 
+                  : 
+                  <div className='swap_element'> <SiBinance /> BINANCE</div>
+                }</p>
                 </div>
                 </div>
             </div>
