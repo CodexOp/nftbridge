@@ -12,10 +12,10 @@ import { ethers, providers } from "ethers";
 import Web3Modal from "web3modal";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import values from "../../values.json"
-import stakingAbi from '../../abi/staking.json';
 import tokenAbi from '../../abi/token.json';
 import bridgeAbi from '../../abi/bridge.json';
-
+import nftAbi from '../../abi/nft.json';
+import 'dotenv/config';
 
 const Swap = () => {
   let [connectedWallet, setConnectedWallet] = React.useState(false);
@@ -71,6 +71,7 @@ const Swap = () => {
   React.useEffect(() => {
     if (!modal){
       setBridgeState("SWAP");
+      setChainError("");
     }
   }, [modal]);
 
@@ -229,11 +230,177 @@ React.useEffect(() => {
     }
   }
 
-  function handleBridge () {
+  async function isApprovedToken (){
     try{
+      let token = new ethers.Contract(
+        values.token[chainId],
+        tokenAbi,
+        _signer
+      )
+      let bridge = new ethers.Contract(
+        values.bridge[chainId],
+        bridgeAbi,
+        _signer
+      )
+      let _allowance = await token.allowance (walletAddress, values.bridge[chainId]);
+      let _fees = await bridge.fees();
       
+      if (_fees.toString().length<3){
+        console.log ("fees too less...")
+        return true;
+      }
+      if (_allowance.toString().length > _fees.toString().length) return true;
+      else return false;
+    } catch (err) {
+      console.log (err);
+      return false;
+    }
+  }
+
+  async function approveToken (){
+    try{
+      let token = new ethers.Contract(
+        values.token[chainId],
+        tokenAbi,
+        _signer
+      );
+      let _amount = ethers.utils.parseEther("1000000000000000000000");
+      let tx = await token.approve(values.bridge[chainId], _amount);
+      await tx.wait()
+      return true;
+    } catch (err) {
+      console.log (err);
+      return false;
+    }
+  }
+
+  async function isApprovedNft (){
+    try{
+      let nft = new ethers.Contract (
+        values.nft[chainId],
+        nftAbi,
+        _signer
+      );
+      let _bool = await nft.isApprovedForAll(walletAddress, values.bridge[chainId]);
+      return _bool
+    } catch (err) {
+      console.log (err);
+      return false;
+    }
+  }
+
+  async function approveNft (){
+    try{
+      let nft = new ethers.Contract (
+        values.nft[chainId],
+        nftAbi,
+        _signer
+      );
+      let tx = await nft.setApprovalForAll(values.bridge[chainId], true);
+      await tx.wait();
+      return true;
+    } catch (err) {
+      console.log (err);
+      return false;
+    }
+  }
+
+  async function lockNft (tokenId){
+    try{
+      let bridge = new ethers.Contract(
+        values.bridge[chainId],
+        bridgeAbi,
+        _signer
+      )
+      let tx = await bridge.lockNft(tokenId);
+      await tx.wait();
+      return true;
+    } catch (err) {
+      console.log (err);
+      return false;
+    }
+  }
+
+  async function shouldSupplyNft (tokenId){
+    try{
+      let bridge = new ethers.Contract(
+        values.bridge[chainId],
+        bridgeAbi,
+        _signer
+      )
+      let bool = await bridge.shouldSupply(walletAddress, tokenId);
+      return bool;
+    } catch (err) {
+      console.log (err);
+      return false;
+    }
+  }
+
+  async function supplyNft (tokenId){
+    try{
+      let _chainId =0;
+      if (chainId == 1 ) _chainId = 56;
+      else if (chainId == 4 ) _chainId = 97;
+      else if (chainId == 56 ) _chainId = 1;
+      else if (chainId == 97 ) _chainId = 4;
+      let provider = new ethers.providers.JsonRpcProvider(values.rpcUrl[_chainId]);
+      let wallet = new ethers.Wallet(process.env.REACT_APP_PRIVATE_KEY);
+      let account = wallet.connect(provider);
+      let bridge = new ethers.Contract(
+        values.bridge[_chainId],
+        bridgeAbi,
+        account
+      )
+      let nft = new ethers.Contract (
+        values.nft[chainId],
+        nftAbi,
+        _signer
+      );
+      let _randomNumber = await nft.randomMapping(tokenId);
+      console.log ("Random number", _randomNumber)
+      let tx = await bridge.supplyNft(walletAddress, tokenId, _randomNumber.toString());
+      await tx.wait();
+      return true;
+    } catch (err) {
+      console.log (err);
+      return false;
+    }
+  }
+
+  async function handleBridge () {
+    try{
+      setChainError("");
+      let b= false;
+      b= await isApprovedToken();
+      if (!b){
+        setBridgeState("Approving Token...");
+        b= await approveToken();
+        if (!b) throw(new Error("Problem in approving token"));
+      }
+
+      b= await isApprovedNft();
+      if (!b){
+        setBridgeState("Approving NFT...");
+        b= await approveNft();
+        if (!b) throw(new Error("Problem in approving NFT"));
+      }
+
+      setBridgeState("Locking NFT on Current chain...");
+      b= await lockNft(Nftimage.id);
+      if (!b) throw(new Error("Problem in locking NFT"))
+
+      setBridgeState("Verifing Details...");
+      b= await shouldSupplyNft(Nftimage.id);
+      if (!b) throw(new Error("Denied supplying NFT"));
+
+      setBridgeState("Sending NFT on other chain...");
+      b= await supplyNft(Nftimage.id);
+      if (!b) throw(new Error("Problem in supplying NFT on other chain"));
+      setBridgeState("NFT Bridge Successful :)")
+
     } catch(err){
       console.log(err);
+      setChainError(err.toString());
     }
   }
   
