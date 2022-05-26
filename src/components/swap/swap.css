@@ -78,9 +78,24 @@ iframe{
 
 .logo h2{
     margin-left: 10px;
+
 }
 
 
+.nonft{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+
+.nonft p{
+    text-align: center !important;
+    background: #20a6db2d;
+    padding: 10px 20px;
+    border-radius: 10px;
+    border:1px solid rgba(255, 255, 255, 0.11);
+}
 
 .wallet{
     padding: 15px 30px;
