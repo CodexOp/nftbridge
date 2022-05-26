@@ -207,7 +207,7 @@ React.useEffect(() => {
   }
 
   function displaynft () {
-    if (imageUrls.length == 0) return <>You don't have any NFT on the current chain 🙁</>
+    if (imageUrls.length == 0) return <div className="nonft"> <p>You don't have any NFT on the current chain 🙁</p></div>
     return (
       imageUrls.length >= 0  && imageUrls.map((value, key) => (<img onClick={(e) => {setNftimage(value); showmodal(e)}} src={value.url} className='nftimages' alt={value.id} />))
     )
