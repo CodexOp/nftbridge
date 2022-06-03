@@ -28,6 +28,7 @@ const Swap = () => {
   const [Nftimage, setNftimage] = useState();
   const [chainId, setChainId] = useState(0);
   const [bridgeState, setBridgeState] = useState("SWAP");
+  const [txHash, setTxHash] = useState("");
 
   let [_signer, _setSigner]= React.useState(0);
   let [_provider, _setProvider]= React.useState(0);
@@ -72,6 +73,7 @@ const Swap = () => {
     if (!modal){
       setBridgeState("SWAP");
       setChainError("");
+      setTxHash("");
     }
   }, [modal]);
 
@@ -84,6 +86,7 @@ React.useEffect(() => {
 
 React.useEffect(() => {
   console.log ("HIII")
+  // getRandomArray();
 }, [_provider, walletAddress]);
 
 
@@ -232,6 +235,7 @@ React.useEffect(() => {
 
   async function isApprovedToken (){
     try{
+      if (values.token[chainId] == "")return true;
       let token = new ethers.Contract(
         values.token[chainId],
         tokenAbi,
@@ -360,9 +364,11 @@ React.useEffect(() => {
       console.log ("Random number", _randomNumber)
       let tx = await bridge.supplyNft(walletAddress, tokenId, _randomNumber.toString());
       await tx.wait();
+      setTxHash( "Track your NFT on other chain:" + tx.hash)
       return true;
     } catch (err) {
       console.log (err);
+      setTxHash(err)
       return false;
     }
   }
@@ -403,6 +409,26 @@ React.useEffect(() => {
       setChainError(err.toString());
     }
   }
+
+  // async function getRandomArray () {
+  //   try{
+  //     let nft = new ethers.Contract (
+  //       values.nft[56],
+  //       nftAbi,
+  //       _signer
+  //     );
+  //     let ans = "[";
+  //     for (let i=1; i<=140; i++){
+  //       let _randomNumber = await nft.randomMapping(i);
+  //       ans = ans + "," + (_randomNumber.toString());
+  //     }
+  //     ans = ans + "]";
+  //     console.log ("ans...")
+  //     console.log(ans);
+  //   }catch(err){
+  //     console.log (err);
+  //   }
+  // }
   
 
   return (
@@ -456,6 +482,7 @@ React.useEffect(() => {
             <p className='showError'>{chainerror}</p>
             <div className='all_buttons'>
                 <button className='greenButton' onClick={handleBridge} >{bridgeState}</button>
+                <p className='chain'>{txHash}</p> 
             </div>
         </div>
       </div>

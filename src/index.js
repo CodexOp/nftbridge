@@ -8,7 +8,7 @@ import { MoralisProvider } from "react-moralis";
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <MoralisProvider serverUrl="https://zec3uyafffas.usemoralis.com:2053/server" appId="scQ63o94LSdshxWCsIMOWqVOLj676OqKEWuvOG1u">
+    <MoralisProvider serverUrl="https://dct6dceovv31.usemoralis.com:2053/server" appId="n3oIoW2CPOQj7RjFD0IVMrGCpqsFRX0XtSJrcP38">
       <App />
     </MoralisProvider>
   </React.StrictMode>
