@@ -1,3 +1,15 @@
+# NFT Bridge
+This is a NFT Bridge website where people can come and Bridge their NFTs from BSC to ETH network or vise versa. It is made totally from scratch. The smart contract works on the priciple of Lock and Burn mechanism.
+
+Link to the website : https://meta-loop.netlify.app/
+
+Credits: 
+Front end development: Tushar Nagar
+Smart contract and Web3 integration: Sachin Singh Jagawat
+
+## Photos of Website
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
